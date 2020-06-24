@@ -10,12 +10,11 @@ import { useAuth } from '../../../utils/auth';
 export default () => {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
-  const { setToken } = useAuth();
+  const { clearToken } = useAuth();
   const history = useHistory();
 
   const handleLogout = () => {
-    localStorage.clear();
-    setToken('');
+    clearToken();
   };
 
   const handleCreate = () => {

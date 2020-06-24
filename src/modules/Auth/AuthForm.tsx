@@ -8,8 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link, Redirect, useLocation } from 'react-router-dom';
-
 import { css } from '@emotion/core';
+
 import { useSigninMutation, useSignupMutation } from './auth.graphql.generated';
 import { useAuth } from '../../utils/auth';
 
@@ -42,21 +42,20 @@ const AuthForm: React.FunctionComponent<AuthFormProps> = (props) => {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { token: authToken, setToken } = useAuth();
+  const { token, handleSetToken } = useAuth();
   const location = useLocation<{ from: string }>();
   const { from } = location.state || { from: { pathname: '/' } };
 
   const [signup, { data: signupData }] = useSignupMutation();
   const [signin, { data: signinData }] = useSigninMutation();
 
-  const token = signupData?.signup.token || signinData?.signin.token;
+  const mutationResponseToken = signupData?.signup.token || signinData?.signin.token;
 
   useEffect(() => {
-    if (token) {
-      localStorage.setItem('token', token);
-      setToken(token);
+    if (mutationResponseToken) {
+      handleSetToken(mutationResponseToken);
     }
-  }, [token, setToken]);
+  }, [mutationResponseToken, handleSetToken]);
 
   const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -72,7 +71,7 @@ const AuthForm: React.FunctionComponent<AuthFormProps> = (props) => {
       : signup({ variables: { input: { email, password } } });
   };
 
-  if (authToken || token) {
+  if (token) {
     return <Redirect to={from} />;
   }
 
@@ -121,7 +120,14 @@ const AuthForm: React.FunctionComponent<AuthFormProps> = (props) => {
               />
             </Grid>
           </Grid>
-          <Button fullWidth variant="contained" color="primary" className={classes.submit} onClick={handleClick}>
+          <Button
+            disabled={!email || !password}
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handleClick}
+          >
             {isSignInForm ? 'Sign In' : 'Sign Up'}
           </Button>
           <Grid container justify="flex-end">

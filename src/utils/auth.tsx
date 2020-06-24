@@ -16,10 +16,21 @@ const useProvideToken = () => {
   const localStorageToken = localStorage.getItem('token');
   const [token, setToken] = useState(localStorageToken || '');
 
+  const handleSetToken = (token: string) => {
+    setToken(token);
+    localStorage.setItem('token', token);
+  };
+
+  const clearToken = () => {
+    setToken('');
+    localStorage.clear();
+  };
+
   // Return the user object and auth methods
   return {
     token,
-    setToken,
+    handleSetToken,
+    clearToken,
   };
 };
 

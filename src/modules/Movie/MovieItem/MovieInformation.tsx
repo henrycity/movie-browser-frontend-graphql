@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { css } from '@emotion/core';
+
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import { useGetMovieQuery } from './MovieItem.graphql.generated';
 

@@ -3,9 +3,8 @@ import { useRef } from 'react';
 import { useGetMoviesQuery } from './MovieBrowser.graphql.generated';
 
 const useMovies = () => {
-  const { data, loading, fetchMore } = useGetMoviesQuery({
+  const { data, fetchMore } = useGetMoviesQuery({
     variables: { input: { page: 1, query: '' } },
-    notifyOnNetworkStatusChange: true,
   });
 
   const prevQuery = useRef('');
@@ -38,7 +37,6 @@ const useMovies = () => {
 
   return {
     movies: data?.movies ?? [],
-    loading,
     loadMovies,
   };
 };

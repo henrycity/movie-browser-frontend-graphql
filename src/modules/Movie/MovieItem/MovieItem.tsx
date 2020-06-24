@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-
 import { AppBar, Button, Toolbar } from '@material-ui/core';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
+
 import AddMovieToListDialog from './AddMovieToListDialog';
 import MovieInformation from './MovieInformation';
 
