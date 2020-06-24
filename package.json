@@ -57,7 +57,8 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom-fourteen",
     "eject": "react-app-rewired eject",
-    "graphql-codegen": "graphql-codegen --config codegen.yml"
+    "graphql-codegen": "graphql-codegen --config codegen.yml",
+    "lint": "eslint '**/*.ts' --quiet --fix"
   },
   "eslintConfig": {
     "extends": "react-app"

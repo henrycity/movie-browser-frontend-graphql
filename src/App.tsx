@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import 'typeface-roboto';
 
 import PrivateRoute from './components/PrivateRoute';
-import MovieWatchList from './modules/Movie/Watchlist/MovieWatchList';
+import Watchlist from './modules/Watchlist/Watchlist';
 import LoadingIndicator from './components/LoadingIndicator';
 
 const Movies = lazy(() => import('./modules/Movie/Movies'));
@@ -22,7 +22,7 @@ const App = () => {
             <Movies />
           </PrivateRoute>
           <PrivateRoute path="/list">
-            <MovieWatchList />
+            <Watchlist />
           </PrivateRoute>
           <Route path="/signup">
             <SignUp />

@@ -20,13 +20,15 @@ interface AddMovieToListDialogProps {
 }
 
 const AddMovieToListDialog: React.FunctionComponent<AddMovieToListDialogProps> = ({ open, handleClose, movieId }) => {
-  const { data } = useGetListsQuery();
+  const { data } = useGetListsQuery({ fetchPolicy: 'cache-and-network' });
   const [addMovieToList] = useAddMovieToListMutation();
   const [selectedListId, setSelectedListId] = useState<number>();
 
   const handleAdd = async () => {
     if (selectedListId) {
-      addMovieToList({ variables: { input: { listId: selectedListId, movieId } } });
+      addMovieToList({
+        variables: { input: { listId: selectedListId, movieId } },
+      });
     }
     handleClose();
   };

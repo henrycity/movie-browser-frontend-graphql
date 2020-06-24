@@ -25,4 +25,10 @@ const client = new ApolloClient({
   cache,
 });
 
+cache.writeData({
+  data: {
+    lists: [],
+  },
+});
+
 export default client;

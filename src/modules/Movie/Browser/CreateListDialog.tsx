@@ -10,6 +10,8 @@ import {
 } from '@material-ui/core';
 
 import { useCreateListMutation } from './MovieBrowser.graphql.generated';
+import { getLists } from '../MovieItem/MovieItem.graphql';
+import { GetListsQuery } from '../MovieItem/MovieItem.graphql.generated';
 
 interface CreateListDialogProps {
   open: boolean;
@@ -27,7 +29,18 @@ const CreateListDialog: React.FunctionComponent<CreateListDialogProps> = ({ open
   const handleCreate = async () => {
     handleClose();
     setListName('');
-    createList({ variables: { input: { name: listName } } });
+    createList({
+      variables: { input: { name: listName } },
+      update(cache, { data }) {
+        if (data) {
+          const { lists } = cache.readQuery({ query: getLists }) as GetListsQuery;
+          cache.writeQuery({
+            query: getLists,
+            data: { lists: [...lists, data.createList] },
+          });
+        }
+      },
+    });
   };
 
   return (

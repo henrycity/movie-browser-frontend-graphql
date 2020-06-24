@@ -12,7 +12,7 @@ const getMovie = gql`
   }
 `;
 
-const getLists = gql`
+export const getLists = gql`
   query getLists {
     lists {
       id
